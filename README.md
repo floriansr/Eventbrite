@@ -1,24 +1,12 @@
-# README
+A FAIRE: 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Mettre l'optional sur belongs_to: Admin dans Event Model afin de faire des tests mail à la création d'un event? (avant de mettre la session utilisateur en route)
 
-Things you may want to cover:
+- Configurer un serveur SMTP afin d'envoyer de real mails via Rails
 
-* Ruby version
+Environnement en dvlpt :
 
-* System dependencies
+*Mettre la gem letter_opener dans Gemfile puis B.I
 
-* Configuration
+*config/environments/development.rb, colle les lignes config.action_mailer.delivery_method = :letter_opener et config.action_mailer.perform_deliveries = true
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
