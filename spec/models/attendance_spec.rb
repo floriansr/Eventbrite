@@ -25,16 +25,16 @@ RSpec.describe Attendance, type: :model do
 
     describe "events" do
 
-      it "should have_many events" do
-        expect(FactoryBot.create(:attendance)).to belong_to(:event)
-        end
+      # it "should have_many events" do
+      #   expect(FactoryBot.create(:attendance)).to belong_to(:event)
+      #   end
     end
 
         describe "users" do
 
-      it "should have_many users" do
-        expect(FactoryBot.create(:attendance)).to belong_to(:user)
-        end
+      # it "should have_many users" do
+      #   expect(FactoryBot.create(:attendance)).to belong_to(:user)
+      #   end
     end
 
   end
