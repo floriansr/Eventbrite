@@ -41,5 +41,4 @@ class Event < ApplicationRecord
        		 errors.add(:duration, "must be multiple of 5")
     	end		
 	end
-
 end
