@@ -1,6 +1,6 @@
 class Attendance < ApplicationRecord
-	belongs_to :user, :optional => true
-    belongs_to :event, :optional => true
+	belongs_to :user
+    belongs_to :event
 
     after_create :say_hi_to_admin_for_new_attendance_guest
     after_create :say_hi_to_guest_for_confirmation_payment
