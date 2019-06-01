@@ -1,4 +1,7 @@
 class AdminMailer < ApplicationMailer
+	
+	default from: 'no-reply@monsite.fr'
+
 	def say_hi_to_admin_for_new_attendance_guest(attendance)
     #on récupère l'instance attendance pour ensuite pouvoir la passer à la view en @admin
     @attendance = attendance
