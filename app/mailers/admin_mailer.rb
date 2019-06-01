@@ -8,11 +8,16 @@ class AdminMailer < ApplicationMailer
     @event = @attendance.event
     @admin = @event.admin
 
-
     #on définit une variable @url qu'on utilisera dans la view d’e-mail
     @url  = 'htttp: mon lien vers mon event' 
-
     # c'est cet appel à mail() qui permet d'envoyer l’e-mail en définissant destinataire et sujet.
     mail(to: @admin.email, subject: 'Un nouveau participant pour votre event !')
-  end
+    end
+
+    def confirmation_event_set(event)
+    @event = event
+    @admin = @event.admin
+    @url  = 'http://monsite.fr/login'
+    mail(to: @admin.email, subject: 'Vous avez bien créé un event!') 
+    end
 end

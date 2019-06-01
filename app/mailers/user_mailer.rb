@@ -12,6 +12,7 @@ class UserMailer < ApplicationMailer
 
   	def say_hi_to_guest_for_confirmation_payment(attendance)
   	@attendance = attendance
+    @event = @attendance.event
   	@guest = @attendance.user
   	@url  = 'http://monsite.fr/login'
   	mail(to: @guest.email, subject: 'Vous êtes bien inscrit sur un event!') 

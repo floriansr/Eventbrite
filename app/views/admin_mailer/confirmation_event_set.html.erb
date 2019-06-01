@@ -4,9 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Salut <%= @guest.first_name %>!</h1>
+    <h1>Salut <%= @admin.first_name %> !</h1>
     <p>
-      Félicitations! Tu viens de réserver ta place sur <%= @event.title %>! Well done!
+      Nous te confirmons la création de ton évènement : <%= @event.title %>.
     </p>
     <p>
       Pour accéder à ton espace client, connecte-toi via : <%= @url %>.
