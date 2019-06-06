@@ -1,34 +1,23 @@
-<p id="notice"><%= notice %></p>
+<br><br><br>
+<div class="container"</div>
+  <div class="card">
+        <div class= "card-header text-center">
+          <strong><%= @event.title %></strong>
+       </div>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @event.start_date %>
-</p>
-
-<p>
-  <strong>Duration:</strong>
-  <%= @event.duration %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @event.price %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @event.location %>
-</p>
+    <div class= "card-body">
+      <ul>
+        <li><strong>Description:</strong> <%= @event.description %></li><br>
+        <li><strong>Participation :</strong> <%= Attendance.where(event_id: @event.id).count%></li><br>
+        <li><strong>Start date:</strong> <%= @event.start_date %></li><br>
+        <li><strong>End at :</strong> <%=@end_date%></li><br>
+        <li><strong>Location:</strong> <%= @event.location %></li><br>
+        <li><strong>Duration:</strong> <%= @event.duration %> min</li><br>
+        <li><strong>Price:</strong> <%= @event.price %> €</li><br>
+        <li><strong>Creator:</strong> <%= @event.admin.email %></li>
+      </ul>
+    </div>
+  </div>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

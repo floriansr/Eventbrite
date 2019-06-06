@@ -13,6 +13,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
         @event = Event.find(params[:id])
+        @end_date = @event.start_date + @event.duration
   end
 
   # GET /events/new
