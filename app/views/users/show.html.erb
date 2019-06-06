@@ -1,29 +1,63 @@
-<p id="notice"><%= notice %></p>
+<br><br><br>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<%if current_user.id == @user.id %>
 
-<p>
-  <strong>Encrypted password:</strong>
-  <%= @user.encrypted_password %>
-</p>
+<div class="container"</div>
+  <div class="card">
+            <div class="card-header text-center">
+                <h5 class="card-title text-danger">User details n° <%= current_user.id %></h5>
+              </div>
+            <div class="card-body">
+               <ul>
+               <li> <p class="card-subtitle mb-3"><strong>Description:</strong> <%= @user.description %></p></li>
+               <li> <p class="card-subtitle mb-3"><strong>First name:</strong> <%= @user.first_name %></p></li>
+               <li> <p class="card-subtitle mb-3"><strong>Last name:</strong> <%= @user.last_name %></p></li>
+               <li> <p class="card-subtitle mb-3"><strong>Email:</strong> <%= @user.email %></p></li>
+               </ul>
+             </div>
+        </div>
+  </div>
+</div>
+<br>
 
-<p>
-  <strong>Description:</strong>
-  <%= @user.description %>
-</p>
+<div class="container"</div>
+         <div class="card">
+            <div class="card-header text-center text-danger">
+                  <center><h5>My events</h5></center>
+            </div>
+                <div class="card-body">
+                <div class="row flex-row">
+                    <div class="col">
+                    <div class="row">
+                        
+                        <% Event.all.each do |event|%>
+                        <%@event = event%>
+                        <%if event.admin_id == current_user.id%>
+                          <div class="text-center col-md-4 mb-5 my-5"><h2><%= event.title%></h2>
+                            <h3 class="text-center card-subtitle mb-2 text-muted">by <%= User.find_by(id: event.admin_id).first_name%> </h3>
+                            <p class="text-center card-text"><%= @event.description[0..80] %>...</p> 
+                            <p><%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%></p>
+                          </div>
 
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
+                        <%end%>
+                        <%end%>
+                    </div></div></div></div>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
+      <!-- link_to "Edit my informations", edit_user_path(current_user), :method => 'get', class: "btn btn-info d-flex justify-content-end" -->
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
+
+<div class="container"</div>
+      <br><%= link_to 'Edit my informations', edit_user_path(@user), class: "btn btn-warning d-flex justify-content-end" %>
+
+
+<%= link_to 'Edit my privacy settings', edit_user_registration_path, class: "btn btn-warning d-flex justify-content-end" %>
+
+
+<%else%>
+
+<h2 class= 'text-danger text-center'>You're not on your profile, <%= link_to 'go to my profile', user_path(current_user) %> </h2>
+<%end%>
+
