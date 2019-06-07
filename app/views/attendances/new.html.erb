@@ -1,5 +1,19 @@
-<h1>New Attendance</h1>
+<br><br><br><%= form_tag attendances_path do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <label class="amount">
+      <span>Amount: $5.00</span>
+    </label>
+  </article>
 
-<%= render 'form', attendance: @attendance %>
-
-<%= link_to 'Back', attendances_path %>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Paiement"
+          data-amount="500"
+          data-currency="eur"
+          data-locale="auto"></script>
+<% end %>
