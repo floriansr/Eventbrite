@@ -6,12 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Attendance.destroy_all
 User.destroy_all
 Event.destroy_all
+Attendance.destroy_all
 
 10.times do
-	User.create(email: Faker::Internet.free_email, first_name: Faker::TvShows::GameOfThrones.house, last_name: Faker::TvShows::GameOfThrones.character, description: Faker::TvShows::GameOfThrones.quote, encrypted_password: Faker::TvShows::GameOfThrones.dragon)
+	User.create(email: Faker::Internet.free_email, first_name: Faker::TvShows::GameOfThrones.house, last_name: Faker::TvShows::GameOfThrones.character, description: Faker::TvShows::GameOfThrones.quote, password: Faker::TvShows::GameOfThrones.dragon)
 end
 
 10.times do

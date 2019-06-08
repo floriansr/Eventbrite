@@ -1,10 +1,14 @@
 class AttendancesController < ApplicationController
+  before_action :authenticate_user!
+  
   def new
-end
+  @event = Event.find(params[:event_id])
+  end
 
 def create
+  @event = Event.find(params[:event_id])
   # Amount in cents
-  @amount = 500
+  @amount = (@event.price)*100
 
   customer = Stripe::Customer.create({
     email: params[:stripeEmail],
@@ -18,9 +22,22 @@ def create
     currency: 'eur',
   })
 
+ @attendance = Attendance.new(user_id: current_user.id, event_id: params[:event_id], stripe_customer_id: customer.id)
+  if @attendance.save     
+      redirect_to event_path(@event)
+      flash[:success] = "Vous participez à l'évènement"
+    else
+    end
+
+
+
 rescue Stripe::CardError => e
   flash[:error] = e.message
-  redirect_to new_charge_path
+  redirect_to event_path
+end
+
+def index
+  @attendances = Attendance.all
 end
 
 end

@@ -30,15 +30,28 @@
                     <div class="col">
                     <div class="row">
                         
-                        <% Event.all.each do |event|%>
-                        <%@event = event%>
-                        <%if event.admin_id == current_user.id%>
-                          <div class="text-center col-md-4 mb-5 my-5"><h2><%= event.title%></h2>
-                            <h3 class="text-center card-subtitle mb-2 text-muted">by <%= User.find_by(id: event.admin_id).first_name%> </h3>
-                            <p class="text-center card-text"><%= @event.description[0..80] %>...</p> 
-                            <p><%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%></p>
-                          </div>
+                        <% Attendance.all.each do |attendance|%>
+                        <%@attendance = attendance
+                          @event = attendance.event%>
 
+                        <%if current_user.id == attendance.user_id %>
+                          <div class="text-center col-md-4 mb-5 my-5"><h2><%= attendance.event.title%></h2>
+                          <h3 class="text-center card-subtitle mb-2 text-muted">by <%= User.find_by(id: attendance.event.admin).first_name%> </h3>
+                          <p class="text-center card-text"><%= attendance.event.description[0..80] %>...</p> 
+                          <p><%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%></p>
+                          </div>
+                        <%end%>
+                        <%end%>
+
+                         <% Event.all.each do |event|%>
+                          <%@event = event %>
+
+                         <% if current_user.id == @event.admin_id %>
+                          <div class="text-center col-md-4 mb-5 my-5"><h2><%= event.title%></h2>
+                          <h3 class="text-center card-subtitle mb-2 text-muted">by <%= User.find_by(id: event.admin.id).first_name%> </h3>
+                          <p class="text-center card-text"><%= event.description[0..80] %>...</p> 
+                          <p><%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%></p>
+                          </div>
                         <%end%>
                         <%end%>
                     </div></div></div></div>
