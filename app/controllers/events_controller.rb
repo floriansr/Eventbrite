@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :show]
+  before_action :only_user, only: [:edit, :destroy]
+
 
 
   # GET /events
@@ -69,6 +71,16 @@ class EventsController < ApplicationController
   end
 
   private
+
+
+  def only_user
+    @event = Event.find(params[:id])
+    unless current_user == @event.admin
+      redirect_to root_path
+      flash[:danger] = "Ce n'est pas votre évènement !"
+    end
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])

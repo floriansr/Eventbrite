@@ -1,6 +1,8 @@
 class AttendancesController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :only_user, only: [:index]
+
+
   def new
   @event = Event.find(params[:event_id])
   end
@@ -37,7 +39,19 @@ rescue Stripe::CardError => e
 end
 
 def index
-  @attendances = Attendance.all
+  @event = Event.find(params[:event_id])
+  @attendees = @event.users
 end
+
+  private
+
+  def only_user
+    @event = Event.find(params[:event_id])
+    unless current_user == @event.admin
+      redirect_to root_path
+      flash[:danger] = "Ce n'est pas votre évènement !"
+    end
+  end
+
 
 end

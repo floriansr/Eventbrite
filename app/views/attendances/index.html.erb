@@ -1,29 +1,23 @@
-<p id="notice"><%= notice %></p>
+<br><br>
 
-<h1>Attendances</h1>
+<div class="card border-warning m-5">
 
-<table>
-  <thead>
-    <tr>
-      <th>Stripe customer</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @attendances.each do |attendance| %>
-      <tr>
-        <td><%= attendance.stripe_customer_id %></td>
-       <!--  <td><%= attendance.user_id %></td>
-        <td><%= attendance.event_id %></td> -->
-        <td><%= link_to 'Show', attendance %></td>
-        <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
-        <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Attendance', new_attendance_path %>
+    <div class="card-header text-center"><h2>Welcome on your event space!</h2></div>
+    <div class="card-body text-dark"><p class="m-2">Liste des participants à ton Event :</p>
+        <div class="card-body text-primary">
+          <ul class="card-text list-group">
+            <% @attendees.each do |attendee| %>
+              <li class="list-group-item">
+                First name: <%= attendee.first_name %></br>
+                Last name: <%= attendee.last_name %></br>
+                Email: <%= attendee.email %><br>
+              </li>
+            <% end %>
+            </br></br>
+            <p class="text-center">
+              <%= link_to "Le modifier", edit_event_path(params[:event_id]), :class => "btn btn-outline-success btn-mg" %>
+              <%= link_to "Le supprimer", event_path(params[:event_id]), :class => "btn btn-outline-danger btn-mg", :data => { :confirm => "Are you sure?" }, :method => "delete" %>
+            </p>
+          </ul>
+        </div>
+    </div>
