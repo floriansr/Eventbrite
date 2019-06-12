@@ -1,47 +1,53 @@
 class AttendancesController < ApplicationController
+ 
   before_action :authenticate_user!
   before_action :only_user, only: [:index]
 
-
+# NEW
   def new
-  @event = Event.find(params[:event_id])
+      @event = Event.find(params[:event_id])
   end
 
-def create
-  @event = Event.find(params[:event_id])
-  # Amount in cents
-  @amount = (@event.price)*100
+# CREATE/STRIPE
 
-  customer = Stripe::Customer.create({
-    email: params[:stripeEmail],
-    source: params[:stripeToken],
-  })
+  def create
+      @event = Event.find(params[:event_id])
+      # Amount in cents
+      @amount = (@event.price)*100
 
-  charge = Stripe::Charge.create({
-    customer: customer.id,
-    amount: @amount,
-    description: "Paiement de N",
-    currency: 'eur',
-  })
+     customer = Stripe::Customer.create({
+        email: params[:stripeEmail],
+        source: params[:stripeToken],
+       })
 
- @attendance = Attendance.new(user_id: current_user.id, event_id: params[:event_id], stripe_customer_id: customer.id)
-  if @attendance.save     
-      redirect_to event_path(@event)
-      flash[:success] = "Vous participez à l'évènement"
-    else
-    end
+     charge = Stripe::Charge.create({
+        customer: customer.id,
+        amount: @amount,
+        description: "Paiement de N",
+        currency: 'eur',
+       })
+
+     @attendance = Attendance.new(user_id: current_user.id, event_id: params[:event_id], stripe_customer_id: customer.id)
+      if @attendance.save     
+          redirect_to event_path(@event)
+          flash[:success] = "Vous participez à l'évènement"
+      else
+       end
+
+      rescue Stripe::CardError => e
+        flash[:error] = e.message
+        redirect_to event_path
+  end
+
+# INDEX
 
 
+  def index
+      @event = Event.find(params[:event_id])
+      @attendees = @event.users
+  end
 
-rescue Stripe::CardError => e
-  flash[:error] = e.message
-  redirect_to event_path
-end
 
-def index
-  @event = Event.find(params[:event_id])
-  @attendees = @event.users
-end
 
   private
 
@@ -52,6 +58,4 @@ end
       flash[:danger] = "Ce n'est pas votre évènement !"
     end
   end
-
-
 end

@@ -1,11 +1,20 @@
 <br><br><br>
 
+
 <%if current_user.id == @user.id %>
 
 <div class="container"</div>
-  <div class="card">
-            <div class="card-header text-center">
+     <div class="card"style="width: 23rem;">
+            
+                <%if @user.avatar.attached?%>
+                        <%= image_tag @user.avatar.variant(resize: "500x500").processed, alt: 'avatar',class: "card-img-top" %>
+                <%else%>
+                       <p><img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" /></p>
+                 <%end%>
+
+      <div class="card-header text-center">
                 <h5 class="card-title text-danger">User details n° <%= current_user.id %></h5>
+                
               </div>
             <div class="card-body">
                <ul>
@@ -15,6 +24,7 @@
                <li> <p class="card-subtitle mb-3"><strong>Email:</strong> <%= @user.email %></p></li>
                </ul>
              </div>
+        </div>
         </div>
   </div>
 </div>

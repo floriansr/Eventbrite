@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :only_user
@@ -66,13 +67,13 @@ class UsersController < ApplicationController
 
   private
 
-  def only_user
-    @user = User.find(params[:id])
-    unless current_user == @user
-      redirect_to root_path
-      flash[:danger] = "Ce n'est pas votre page !"
+    def only_user
+      @user = User.find(params[:id])
+      unless current_user == @user
+        redirect_to root_path
+        flash[:danger] = "Ce n'est pas votre page !"
+      end
     end
-  end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -81,6 +82,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :encrypted_password, :description, :first_name, :last_name)
+      params.require(:user).permit(:email, :encrypted_password, :description, :first_name, :last_name, :avatar)
     end
 end

@@ -1,7 +1,5 @@
 class Event < ApplicationRecord
 
-	has_one_attached :header_image
-
 	belongs_to :admin, class_name: "User"
 
 	after_create :confirmation_event_set
@@ -33,6 +31,7 @@ class Event < ApplicationRecord
 	validates :location,
 	presence: true
 
+	has_one_attached :header_image
 	validate :correct_header_image_type
 
 	private
