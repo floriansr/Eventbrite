@@ -45,6 +45,11 @@
     <%= form.text_field :location, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= form.label :header_image %><br />
+    <%= form.file_field :header_image, class: "form-control" %>
+  </div>
+
 
   <div class="actions mt-5">
     <%= form.submit "Go ahead", class: "btn btn-lg btn-primary btn-block" %>

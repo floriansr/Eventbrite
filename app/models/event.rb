@@ -1,5 +1,7 @@
 class Event < ApplicationRecord
 
+	has_one_attached :header_image
+
 	belongs_to :admin, class_name: "User"
 
 	after_create :confirmation_event_set
@@ -30,6 +32,18 @@ class Event < ApplicationRecord
 
 	validates :location,
 	presence: true
+
+	validate :correct_header_image_type
+
+	private
+
+	def correct_header_image_type
+		if header_image.attached? && !header_image.content_type.in?(%w(image/jpeg image/png))
+		errors.add(:header_image, 'must be a JPEG or PNG')
+		elsif header_image.attached? == false
+		errors.add(:header_image, 'required.')
+		end
+	end
 
     def start_date_cannot_be_in_the_past
        if start_date.present? && start_date < Date.today

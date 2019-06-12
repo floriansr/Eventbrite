@@ -1,10 +1,19 @@
 <br><br><br>
 
 <div class="container"</div>
-  <div class="card">
-        <div class= "card-header text-center">
+
+  <div class="card"style="width: 23rem;">
+
+
+    <%if @event.header_image.attached?%>
+      <%= image_tag @event.header_image, alt: 'header_image' , size: "100x270" ,class: "card-img-top" %>
+    <%else%>
+      <p>=== Il n'y a pas encore d'image lié à cet event ===</p>
+    <%end%>
+
+    <div class= "card-header text-center">
           <strong><%= @event.title %></strong>
-       </div>
+    </div>
 
     <div class= "card-body">
       <ul>
