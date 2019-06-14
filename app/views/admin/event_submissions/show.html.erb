@@ -1,0 +1,30 @@
+<br><br>
+<br>
+<br>
+
+
+<div class="container">
+	<div class="card">
+		<div class="card-header text-center">
+			<%= @event.title %>
+		</div>
+		<div class="card-body">
+			<ul>
+			<li>Description: <%= @event.description %></li>
+			<li>Start date: <%= @event.start_date %></li>
+			<li>Duration: <%= @event.duration %> min</li>
+			<li>Price: <%= @event.price %> €</li>
+			<li>Location: <%= @event.location %></li>
+			<li>Creator: <%= @event.admin.email%></li>
+			<li>Event ID: <%= @event.id %></li>
+			<li>User ID: <%= @event.admin.id %></li>
+			</ul>
+
+			<% if @event.admin.is_admin == true %>
+			<% else %>
+					<%= link_to "Modification", edit_admin_event_submission_path(@event.id), :class => "btn btn-outline-success btn-mg p-1" %>
+	     			<%= link_to "Delete", admin_event_submission_path(@event.id), :class => "btn btn-outline-danger btn-mg p-1", :data => { :confirm => "Are you sure?" }, :method => "delete" %>
+     		<% end %>
+		</div>
+	</div>
+</div>

@@ -10,12 +10,22 @@
 
 
     <div style="background:transparent !important" class="jumbotron">
-      <center><h1 class="display-4 m-1 text-primary">Hello, <%=current_user.first_name%>!</h1>
-      <p>Welcome on my website, let's see which events fit to your dreams! </p>
+      <center>
+        <h1 class="display-4 m-1 text-primary">Hello, <%=current_user.first_name%>!</h1>
+              <p>Welcome on my website, let's see which events fit to your dreams! </p>
       <hr class="my-3">
-      <p>You can join any events on this page. Look into it!</p><br>
-      <div class=" mb-4"><%= link_to "Create event", new_event_path, :class => "btn btn-outline-danger btn-lg btn-block" %></div></center>
-  </div>
+          <p>You can join any events on this page. Look into it!</p><br>
+         <div class=" mb-4">
+            <%= link_to "Create event", new_event_path, :class => "btn btn-outline-danger btn-lg btn-block" %>
+       
+           <%if current_user.is_admin == true %>
+
+             <a class="btn btn-outline-primary btn-lg btn-block" <%= link_to "Admin access", admin_root_path%></a>
+         </div>
+       </center>
+          <%else %>
+          <% end %>
+      </div>
     </div>
 
 
@@ -23,7 +33,14 @@
 
   <div class="card-columns border-warning container " >
       <% @events.each do |event| %>
-        <div class="card">
+        <div class="card"style= "width: 23rem;">
+
+          <%if event.header_image.attached?%>
+                        <%= image_tag event.header_image.variant(resize: "500x500").processed, alt: 'header_image',class: "card-img-top" %>
+                <%else%>
+                       <p><img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" /></p>
+                 <%end%>
+
             <div class="card-header text-center">
                 <h5 class="card-title text-danger"><%= event.title %></h5>
             </div>

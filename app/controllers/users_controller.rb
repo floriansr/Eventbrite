@@ -1,14 +1,9 @@
 class UsersController < ApplicationController
-  
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :only_user
+  before_action :only_user_and_admins
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
 
   # GET /users/1
   # GET /users/1.json
@@ -46,8 +41,18 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+            if current_user.is_admin == true
+                if current_user.id == @user.id
+                  format.html { redirect_to @user, notice: 'User was successfully updated.' }
+                  format.json { render :show, status: :ok, location: @user }         
+                else
+                  format.html { redirect_to admin_checkusers_path, notice: 'User was successfully updated.' }
+                  format.json { render :show, status: :ok, location: @user }
+                end
+            else     
+                format.html { redirect_to @user, notice: 'User was successfully updated.' }
+                format.json { render :show, status: :ok, location: @user }
+            end
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -67,11 +72,12 @@ class UsersController < ApplicationController
 
   private
 
-    def only_user
-      @user = User.find(params[:id])
-      unless current_user == @user
+    def only_user_and_admins
+      if current_user.is_admin == true || current_user.id == @user.id
+        
+      else
         redirect_to root_path
-        flash[:danger] = "Ce n'est pas votre page !"
+        flash[:danger] = "This is not yours!"
       end
     end
 

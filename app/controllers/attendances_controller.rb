@@ -1,17 +1,16 @@
 class AttendancesController < ApplicationController
  
   before_action :authenticate_user!
+  before_action :set_event
   before_action :only_user, only: [:index]
 
 # NEW
   def new
-      @event = Event.find(params[:event_id])
   end
 
 # CREATE/STRIPE
 
   def create
-      @event = Event.find(params[:event_id])
       # Amount in cents
       @amount = (@event.price)*100
 
@@ -43,7 +42,6 @@ class AttendancesController < ApplicationController
 
 
   def index
-      @event = Event.find(params[:event_id])
       @attendees = @event.users
   end
 
@@ -51,11 +49,15 @@ class AttendancesController < ApplicationController
 
   private
 
+  def set_event
+      @event = Event.find(params[:id])
+    end
+
   def only_user
     @event = Event.find(params[:event_id])
     unless current_user == @event.admin
       redirect_to root_path
-      flash[:danger] = "Ce n'est pas votre évènement !"
+      flash[:danger] = "This is not yours!"
     end
   end
 end

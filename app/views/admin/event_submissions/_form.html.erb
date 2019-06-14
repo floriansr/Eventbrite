@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+
+      <%= form_with(model: event, local: true) do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :start_date %><br />
+    <%= form.datetime_select :start_date %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :duration %><br />
+    <%= form.number_field :duration, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :title %><br />
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %><br />
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :price %><br />
+    <%= form.number_field :price, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :location %><br />
+    <%= form.text_field :location, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :header_image %><br />
+    <%= form.file_field :header_image, class: "form-control" %>
+  </div>
+
+
+  <div class="actions mt-5">
+    <%= form.submit "Go ahead", class: "btn btn-lg btn-primary btn-block" %>
+  </div>
+<% end %>
+
+
+
+</div>
+  </div>
+</div>

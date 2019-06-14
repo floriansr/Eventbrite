@@ -1,9 +1,6 @@
 <br><br><br>
 
-
-<%if current_user.id == @user.id %>
-
-<div class="container"</div>
+<div class="container">
      <div class="card"style="width: 23rem;">
             
                 <%if @user.avatar.attached?%>
@@ -12,10 +9,9 @@
                        <p><img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" /></p>
                  <%end%>
 
-      <div class="card-header text-center">
-                <h5 class="card-title text-danger">User details n° <%= current_user.id %></h5>
-                
-              </div>
+            <div class="card-header text-center"><h5 class="card-title text-danger">User details n° <%= current_user.id %></h5></div>
+
+
             <div class="card-body">
                <ul>
                <li> <p class="card-subtitle mb-3"><strong>Description:</strong> <%= @user.description %></p></li>
@@ -23,64 +19,108 @@
                <li> <p class="card-subtitle mb-3"><strong>Last name:</strong> <%= @user.last_name %></p></li>
                <li> <p class="card-subtitle mb-3"><strong>Email:</strong> <%= @user.email %></p></li>
                </ul>
-             </div>
-        </div>
-        </div>
-  </div>
+            </div>
+    </div>
 </div>
+<br><br><br>
+
+
+
+<div class="text-center text-danger">
+  <strong><h4>Waiting events</h4></strong>
+</div>
+
+<br>
+  <div class="card-columns border-warning container">
+
+                                <% Attendance.all.each do |attendance|%>
+                                <%@attendance = attendance
+                                  @event = attendance.event%>
+
+                                <%if current_user.id == attendance.user_id %>
+                              
+                
+
+           <div class= "card"style="width: 23rem;">
+
+                                        <%if @event.header_image.attached?%>
+                                               <%= image_tag @event.header_image.variant(resize: "500x500").processed, alt: 'header_image',class: "card-img-top" %>
+                                         <%else%>
+                                               <p><img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" /></p>
+                                         <%end%>
+
+
+
+                              <div class= "card-header text-center"> <%= @event.title%></div>
+
+
+
+                              <div class="card-body text-center">
+
+                                  <h4 class="card-subtitle mb-2 text-muted"><%= User.find_by(id: attendance.event.admin).first_name%> <%= User.find_by(id: attendance.event.admin).last_name%>'s event </h4>
+
+                                 <p class="card-text"><%= attendance.event.description[0..80] %>...</p> 
+                                 <p><%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%></p>
+
+                              </div>
+                              </div>
+                          
+                            <%end%>
+                            <%end%>
+        </div>
 <br>
 
-<div class="container"</div>
-         <div class="card">
-            <div class="card-header text-center text-danger">
-                  <center><h5>My events</h5></center>
-            </div>
-                <div class="card-body">
-                <div class="row flex-row">
-                    <div class="col">
-                    <div class="row">
-                        
-                        <% Attendance.all.each do |attendance|%>
-                        <%@attendance = attendance
-                          @event = attendance.event%>
 
-                        <%if current_user.id == attendance.user_id %>
-                          <div class="text-center col-md-4 mb-5 my-5"><h2><%= attendance.event.title%></h2>
-                          <h3 class="text-center card-subtitle mb-2 text-muted">by <%= User.find_by(id: attendance.event.admin).first_name%> </h3>
-                          <p class="text-center card-text"><%= attendance.event.description[0..80] %>...</p> 
-                          <p><%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%></p>
-                          </div>
-                        <%end%>
-                        <%end%>
+<div class="text-center text-danger">
+  <strong><h4>My events</h4></strong>
+</div>
+<br>
+<div class="card-columns border-warning container">
 
-                         <% Event.all.each do |event|%>
-                          <%@event = event %>
+                            <% Event.all.each do |event|%>
+                            <%@event = event %>
 
-                         <% if current_user.id == @event.admin_id %>
-                          <div class="text-center col-md-4 mb-5 my-5"><h2><%= event.title%></h2>
-                          <h3 class="text-center card-subtitle mb-2 text-muted">by <%= User.find_by(id: event.admin.id).first_name%> </h3>
-                          <p class="text-center card-text"><%= event.description[0..80] %>...</p> 
-                          <p><%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%></p>
-                          </div>
+
+                                         <% if current_user.id == @event.admin_id %>
+
+
+                                          <div class= "card"style="width: 23rem;">
+
+                                                    <%if event.header_image.attached?%>
+                                                    <%= image_tag event.header_image.variant(resize: "500x500").processed, alt: 'header_image',class: "card-img-top" %>
+                                                     <%else%>
+                                                      <p><img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" /></p>
+                                                   <%end%>
+
+                         <div class= "card-header text-center"> <%= event.title%></div>
+
+                                   <div class="card-body text-center">
+
+                                            <h4 class="card-subtitle mb-2 text-muted"><%= User.find_by(id: event.admin.id).first_name%> <%= User.find_by(id: event.admin.id).last_name%>'s event </h4>
+
+                                            <p class="card-text"><%= event.description[0..80] %>...</p>
+
+                                             <%= link_to "See the event", event_path(@event.id), :method => 'get', class: "btn btn-warning"%>
+                                  </div>
+                        </div>
+
                         <%end%>
                         <%end%>
-                    </div></div></div></div>
+                    </div>
 
       <!-- link_to "Edit my informations", edit_user_path(current_user), :method => 'get', class: "btn btn-info d-flex justify-content-end" -->
-  </div>
-</div>
 
 
 
-<div class="container"</div>
+<div class="container">
       <br><%= link_to 'Edit my informations', edit_user_path(@user), class: "btn btn-warning d-flex justify-content-end" %>
 
 
 <%= link_to 'Edit my privacy settings', edit_user_registration_path, class: "btn btn-warning d-flex justify-content-end" %>
 
+</div>
 
-<%else%>
 
-<h2 class= 'text-danger text-center'>You're not on your profile, <%= link_to 'go to my profile', user_path(current_user) %> </h2>
-<%end%>
 
+<!-- <h2 class= 'text-danger text-center'>You're not on your profile, <%= link_to 'go to my profile', user_path(current_user) %> </h2>
+ -->

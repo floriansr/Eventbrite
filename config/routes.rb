@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
 
-  get 'avatars/create'
   devise_for :users
 
 
-  resources :events do
+  resources :events, except: [:index] do
   	resources :attendances, only: [:new, :create, :index]
   	resources :header_images, only: [:create]
   end
 
-  resources :users do
+  resources :users, except: [:index] do
  	 resources :avatars, only: [:create]
   end
 
   root 'events#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+
+  namespace :admin do
+    resources :checkusers, except: [:update, :create] 
+    resources :event_submissions, except: [:update, :create]
+    root "admins#index"
+  end
 end

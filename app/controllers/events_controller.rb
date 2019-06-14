@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   
+  before_action :authenticate_user!, except: [:index]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :show]
   before_action :only_user, only: [:edit, :destroy]
 
 
@@ -15,7 +15,6 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-        @event = Event.find(params[:id])
         @end_date = @event.start_date + (@event.duration * 60)
   end
 
@@ -26,7 +25,6 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-        @event = Event.find(params[:id])
   end
 
   # POST /events
@@ -52,13 +50,23 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @event }
+            if current_user.is_admin == true
+                   if current_user.id == @event.admin.id
+                      format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+                      format.json { render :show, status: :ok, location: @event }
+                   else
+                      format.html { redirect_to admin_event_submissions_path, notice: 'Event was successfully updated.' }
+                      format.json { render :show, status: :ok, location: @event }
+                   end
+            else
+                      format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+                      format.json { render :show, status: :ok, location: @event }
+            end
       else
-        format.html { render :edit }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+                      format.html { render :edit }
+                      format.json { render json: @event.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # DELETE /events/1
@@ -78,7 +86,7 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
       unless current_user == @event.admin
         redirect_to root_path
-        flash[:danger] = "Ce n'est pas votre évènement !"
+        flash[:danger] = "This is not yours!"
       end
     end
 

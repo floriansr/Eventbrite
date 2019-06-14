@@ -1,0 +1,22 @@
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br>
+
+
+<div class="container">
+	<div class= "card">
+
+		<div class= "card-header text-center">
+			<h4>Bienvenue à toi Admin <%= current_user.last_name %></h4>
+		</div>
+
+		<div class= "card-body text-center">
+			<p>Nous t'avons concocté la liste des events en attente de validation + la liste de tous les utilisateurs de ton app, cool nan, ça arrive vite tkt ;) *han* !</p>
+
+			<a class="btn-outline-primary btn btn-mg p-1" <%= link_to "Event list", admin_event_submissions_path%></a>
+
+			<a class="btn-outline-primary btn btn-mg p-1" <%= link_to "User list", admin_checkusers_path%></a>
+		</div>
+	</div>
+</div>
