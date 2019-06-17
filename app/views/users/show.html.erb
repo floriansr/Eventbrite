@@ -33,9 +33,8 @@
 <br>
   <div class="card-columns border-warning container">
 
-                                <% Attendance.all.each do |attendance|%>
-                                <%@attendance = attendance
-                                  @event = attendance.event%>
+              <% Attendance.all.each do |attendance|%>
+              <% @event = attendance.event%>
 
                                 <%if current_user.id == attendance.user_id %>
                               

@@ -50,8 +50,8 @@ class AttendancesController < ApplicationController
   private
 
   def set_event
-      @event = Event.find(params[:id])
-    end
+    @event = Event.find(params[:event_id])
+  end
 
   def only_user
     @event = Event.find(params[:event_id])
