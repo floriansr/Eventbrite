@@ -13,6 +13,7 @@ gem 'stripe'
 
 gem 'gravatar_image_tag'
 
+gem "aws-sdk-s3", require: false
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
