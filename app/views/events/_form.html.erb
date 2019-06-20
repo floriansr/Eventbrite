@@ -18,36 +18,45 @@
   <div class="form-group">
     <%= form.label :start_date %><br />
     <%= form.datetime_select :start_date %>
+    <i><small id="start_dateHelp" class="form-text text-muted">cannot be in the past!</small></i>
+
   </div>
 
   <div class="form-group">
     <%= form.label :duration %><br />
     <%= form.number_field :duration, class: "form-control" %>
+    <i><small id="durationHelp" class="form-text text-muted">must be multiple of 5 min</small></i>
   </div>
 
   <div class="form-group">
     <%= form.label :title %><br />
     <%= form.text_field :title, class: "form-control" %>
+    <i><small id="titleHelp" class="form-text text-muted">must be between 5-140 characters</small></i>
   </div>
 
   <div class="form-group">
     <%= form.label :description %><br />
     <%= form.text_area :description, class: "form-control" %>
+    <i><small id="descriptionHelp" class="form-text text-muted">must be between 20-1000 characters</small></i>
   </div>
 
   <div class="form-group">
     <%= form.label :price %><br />
     <%= form.number_field :price, class: "form-control" %>
+    <i><small id="priceHelp" class="form-text text-muted">must be between 1-1000 euros</small></i>
   </div>
 
   <div class="form-group">
     <%= form.label :location %><br />
     <%= form.text_field :location, class: "form-control" %>
+    <i><small id="locationHelp" class="form-text text-muted">Wherever you want!</small></i>
   </div>
 
   <div class="form-group">
     <%= form.label :header_image %><br />
     <%= form.file_field :header_image, class: "form-control" %>
+    <i><small id="locationHelp" class="form-text text-muted">Image must be attached.</small></i>
+
   </div>
 
 

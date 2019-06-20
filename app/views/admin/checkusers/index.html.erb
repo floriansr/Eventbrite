@@ -8,6 +8,7 @@
 
   <div class="card-columns border-warning container " >
       <% @users.each do |user| %>
+      <%if user.is_admin != true %>
       <div class= "column">
         <div class="card"style= "width: 23rem;">
 
@@ -26,5 +27,38 @@
             </div>
             </div>
         </div>
+        <% end %>
+      <% end %>
+  </div>
+
+<br><br>
+
+<center><h2>Admin list</h2></center>
+
+<br><br>
+
+
+   <div class="card-columns border-warning container " >
+      <% @users.each do |user| %>
+      <%if user.is_admin == true %>
+      <div class= "column">
+        <div class="card"style= "width: 23rem;">
+
+           <%if user.avatar.attached?%>
+                        <%= image_tag user.avatar.variant(resize: "500x500").processed, alt: 'avatar',class: "card-img-top" %>
+                <%else%>
+                       <p><img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" /></p>
+                 <%end%>
+
+            <div class="card-header text-center">
+                <h5 class="card-title text-danger"><%= user.first_name%> <%=user.last_name%></h5>
+            </div>
+            <div class="card-body text-center">
+            <p class="card-subtitle mb-3"><%= user.email %></p>
+            <a class="btn-outline-primary btn p-1" <%= link_to "Have a look on it", admin_checkuser_path(user.id)%></a>
+            </div>
+            </div>
+        </div>
+        <% end %>
       <% end %>
   </div>

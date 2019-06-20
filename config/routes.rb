@@ -16,8 +16,8 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
-    resources :checkusers, except: [:update, :create] 
-    resources :event_submissions, except: [:update, :create]
+    resources :checkusers, except: [:create] 
+    resources :event_submissions, except: [:create]
     root "admins#index"
   end
 end

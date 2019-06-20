@@ -5,7 +5,6 @@ class EventsController < ApplicationController
   before_action :only_user, only: [:edit, :destroy]
 
 
-
   # GET /events
   # GET /events.json
   def index
@@ -32,6 +31,13 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.admin_id = current_user.id
+
+   #EVENT AUTO-VALIDATED IF CURRENT_USER IS ADMIN
+    if current_user.is_admin == true
+    @event.update(validated: true)
+    else
+    end
+
     @event.save
 
     respond_to do |format|
@@ -74,12 +80,26 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
+      format.html { redirect_to '/', notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+
+# def check_validation
+
+#       @event = Event.find(params[:id])
+
+#       if @event.validated != true && current_user.id == @event.admin_id
+#       elsif @event.validated != true && current_user.id != @event.admin_id
+#       else @event.validated == true && current_user.id != @event.admin_id
+
+#         flash[:error] = "This event is under review by Place2B admins."
+#         redirect_to root_path
+#       end
+#     end
+    
 
 
     def only_user

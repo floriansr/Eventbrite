@@ -11,7 +11,7 @@ gem 'dotenv-rails'
 
 gem 'stripe'
 
-gem 'gravatar_image_tag'
+#gem 'gravatar_image_tag'
 
 gem "aws-sdk-s3", require: false
 
@@ -65,6 +65,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem "letter_opener"
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do

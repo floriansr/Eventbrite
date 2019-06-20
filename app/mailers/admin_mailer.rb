@@ -1,6 +1,6 @@
 class AdminMailer < ApplicationMailer
 	
-	default from: 'no-reply@monsite.fr'
+	default from: 'flo@place2be.com'
 
 	def say_hi_to_admin_for_new_attendance_guest(attendance)
     #on récupère l'instance attendance pour ensuite pouvoir la passer à la view en @admin
@@ -9,7 +9,7 @@ class AdminMailer < ApplicationMailer
     @admin = @event.admin
 
     #on définit une variable @url qu'on utilisera dans la view d’e-mail
-    @url  = 'htttp: mon lien vers mon event' 
+    @url  = 'https://cryptic-stream-41844.herokuapp.com/' 
     # c'est cet appel à mail() qui permet d'envoyer l’e-mail en définissant destinataire et sujet.
     mail(to: @admin.email, subject: 'Un nouveau participant pour votre event !')
     end
@@ -17,7 +17,7 @@ class AdminMailer < ApplicationMailer
     def confirmation_event_set(event)
     @event = event
     @admin = @event.admin
-    @url  = 'http://monsite.fr/login'
+    @url  = 'https://cryptic-stream-41844.herokuapp.com/'
     mail(to: @admin.email, subject: 'Vous avez bien créé un event!') 
     end
 end

@@ -4,13 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Salut <%= @admin.first_name %> !</h1>
+    <h1>Hey <%= @admin.first_name %> !</h1>
     <p>
-      Nous te confirmons la création de ton évènement : <%= @event.title %>.
+      Nous te confirmons la création de ton évènement "<%= @event.title %>", un administrateur doit maintenant valider votre évènement.
     </p>
     <p>
-      Pour accéder à ton espace client, connecte-toi via : <%= @url %>.
+      Pour accéder à ton event, connecte-toi via : <%= @url %><%=@event.id %>.
     </p>
-    <p> À très vite sur monsite.fr !
+    <p> À très vite sur https://cryptic-stream-41844.herokuapp.com/!
   </body>
 </html>

@@ -14,12 +14,17 @@
 			<li>Email: <%= @user.email %></li>
 			<li>Encrypted_password: <%= @user.encrypted_password %></li>
 			</ul>
+		</div>
+
+		<div class= "card-body text-center">
 
 			<% if @user.is_admin == true %>
 			<% else %>
-			<%= link_to "Modification", edit_admin_checkuser_path(@user.id), :class => "btn btn-outline-success btn-mg p-1" %>
-     		<%= link_to "Delete", admin_checkuser_path(@user.id), :class => "btn btn-outline-danger btn-mg p-1", :data => { :confirm => "Are you sure?" }, :method => "delete" %>
+			<%= link_to "Modification", edit_admin_checkuser_path(@user.id), :class => "btn btn-outline-success btn-lg p-1" %>
+     		<%= link_to "Delete", admin_checkuser_path(@user.id), :class => "btn btn-outline-danger btn-lg p-1", :data => { :confirm => "Are you sure?" }, :method => "delete" %>
+     		<%= link_to "Give Admin Access", admin_checkuser_path(@user.id), :class => "btn btn-outline-primary btn-lg p-1", :data => { :confirm => "Are you sure?" }, :method => "put" %>
+
      		<% end %>
-		</div>
+     	</div>
 	</div>
 </div>

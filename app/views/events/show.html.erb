@@ -1,42 +1,84 @@
 <br><br><br>
 
-<div class="container"</div>
+<%if @event.validated == true %>
 
-  <div class="card"style="width: 23rem;">
+            <div class="container"</div>
 
 
-    <%if @event.header_image.attached?%>
-      <%= image_tag @event.header_image, alt: 'header_image' , size: "100x270" ,class: "card-img-top" %>
-    <%else%>
-      <p>=== Il n'y a pas encore d'image lié à cet event ===</p>
-    <%end%>
+              <div class="card"style="width: 23rem;">
 
-    <div class= "card-header text-center">
-          <strong><%= @event.title %></strong>
-    </div>
+                  <%= image_tag @event.header_image, alt: 'header_image' , size: "100x270" ,class: "card-img-top" %>
+                
 
-    <div class= "card-body">
-      <ul>
-        <li><strong>Description:</strong> <%= @event.description %></li><br>
-        <li><strong>Participation :</strong> <%= Attendance.where(event_id: @event.id).count%></li><br>
-        <li><strong>Start date:</strong> <%= @event.start_date %></li><br>
-        <li><strong>End at :</strong> <%=@end_date%></li><br>
-        <li><strong>Location:</strong> <%= @event.location %></li><br>
-        <li><strong>Duration:</strong> <%= @event.duration %> min</li><br>
-        <li><strong>Price:</strong> <%= @event.price %> €</li><br>
-        <li><strong>Creator:</strong> <%= @event.admin.email %></li>
-      </ul>
+                <div class= "card-header text-center">
+                      <strong><%= @event.title %></strong>
+                </div>
 
-    <div class="text-center">
-      <% if current_user == @event.admin %>
-      <% elsif @event.users.include? current_user %>
-         <p><strong>Prepare yourself to fight!</strong></p>
-      <% else %>
-          <%= link_to "Click for participate!", new_event_attendance_path(@event), class: "btn btn-outline-danger btn-lg"%>
-      <% end %>
-  
-     <% if current_user == @event.admin %>
-     <%= link_to "Mon espace évènement", event_attendances_path(@event), class: "btn btn-outline-danger btn-lg" %>
-     <% end %>
-  </div>
-</div>
+                <div class= "card-body">
+                  <ul>
+                    <li><strong>Description:</strong> <%= @event.description %></li><br>
+                    <li><strong>Participation :</strong> <%= Attendance.where(event_id: @event.id).count%></li><br>
+                    <li><strong>Start date:</strong> <%= @event.start_date %></li><br>
+                    <li><strong>End at :</strong> <%=@end_date%></li><br>
+                    <li><strong>Location:</strong> <%= @event.location %></li><br>
+                    <li><strong>Duration:</strong> <%= @event.duration %> min</li><br>
+                    <li><strong>Price:</strong> <%= @event.price %> €</li><br>
+                    <li><strong>Creator:</strong> <%= @event.admin.email %></li>
+                  </ul>
+
+                <div class="text-center">
+                  <% if current_user == @event.admin %>
+                  <% elsif @event.users.include? current_user %>
+                     <p><strong>Prepare yourself to fight!</strong></p>
+                  <% else %>
+                      <%= link_to "Click for participate!", new_event_attendance_path(@event), class: "btn btn-outline-danger btn-lg"%>
+                  <% end %>
+              
+                 <% if current_user == @event.admin %>
+                 <%= link_to "Event space", event_attendances_path(@event), class: "btn btn-outline-danger btn-lg" %>
+                 <% end %>
+              </div>
+            </div>
+
+<% else %>
+    <%if current_user == @event.admin || current_user.is_admin = true %>
+
+              <div class="container"</div>
+                <div class="card"style="width: 23rem;">
+                    <%= image_tag @event.header_image, alt: 'header_image' , size: "100x270" ,class: "card-img-top" %>
+                  <div class= "card-header text-center">
+                        <strong><%= @event.title %></strong>
+                  </div>
+                  <div class= "card-body">
+                    <ul>
+                      <li><strong>Description:</strong> <%= @event.description %></li><br>
+                      <li><strong>Participation :</strong> <%= Attendance.where(event_id: @event.id).count%></li><br>
+                      <li><strong>Start date:</strong> <%= @event.start_date %></li><br>
+                      <li><strong>End at :</strong> <%=@end_date%></li><br>
+                      <li><strong>Location:</strong> <%= @event.location %></li><br>
+                      <li><strong>Duration:</strong> <%= @event.duration %> min</li><br>
+                      <li><strong>Price:</strong> <%= @event.price %> €</li><br>
+                      <li><strong>Creator:</strong> <%= @event.admin.email %></li>
+                    </ul>
+                  <div class="text-center">
+                    <% if current_user == @event.admin %>
+                    <% elsif @event.users.include? current_user %>
+                       <p><strong>Prepare yourself to fight!</strong></p>
+                    <% else %>
+                        <%= link_to "Click for participate!", new_event_attendance_path(@event), class: "btn btn-outline-danger btn-lg"%>
+                    <% end %>
+                   <% if current_user == @event.admin %>
+                   <%= link_to "Event space", event_attendances_path(@event), class: "btn btn-outline-danger btn-lg" %>
+                   <% end %>
+                </div>
+              </div>
+    <% else %>
+    <br><br><br><br><p><center>
+      It's under review mate, please wait Admin's permit before join this event.<br>
+      Only Admins & Event Admin can access.
+    </p></center>
+
+
+
+    <% end %>
+<% end %>

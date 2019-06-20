@@ -2,7 +2,7 @@ class Admin::CheckusersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :check_if_admin
-  before_action :set_user, only: [:show, :edit, :destroy]
+  before_action :set_user, only: [:show, :edit, :destroy, :update]
 
   def index
   @users = User.all
@@ -12,6 +12,15 @@ class Admin::CheckusersController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+
+    @user.update(is_admin: true)
+
+    flash[:alert] = "User is now Admin."
+    redirect_to admin_checkusers_path
+
   end
 
   def destroy

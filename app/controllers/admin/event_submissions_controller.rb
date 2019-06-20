@@ -2,7 +2,7 @@ class Admin::EventSubmissionsController < ApplicationController
   
   before_action :authenticate_user!
   before_action :check_if_admin
-  before_action :set_event, only: [:show, :edit, :destroy]
+  before_action :set_event, only: [:show, :edit, :destroy, :update]
 
 
   def index
@@ -21,6 +21,15 @@ class Admin::EventSubmissionsController < ApplicationController
       format.html { redirect_to admin_event_submissions_path, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def update
+
+    @event.update(validated: true)
+
+    flash[:alert] = "Event validated"
+    redirect_to admin_event_submissions_path
+
   end
 
    private

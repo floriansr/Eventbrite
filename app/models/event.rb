@@ -3,6 +3,7 @@ class Event < ApplicationRecord
 	belongs_to :admin, class_name: "User"
 
 	after_create :confirmation_event_set
+	# after_update :validation_event_by_admin
 
 	has_many :attendances
   	has_many :users, through: :attendances
@@ -60,4 +61,8 @@ class Event < ApplicationRecord
 	def confirmation_event_set
 		AdminMailer.confirmation_event_set(self).deliver_now
 	end
+
+	# def validation_event_by_admin
+	# 	UserMailer.validation_event_by_admin(self).deliver_now
+	# end
 end

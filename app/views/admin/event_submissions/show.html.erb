@@ -24,6 +24,10 @@
 			<% else %>
 					<%= link_to "Modification", edit_admin_event_submission_path(@event.id), :class => "btn btn-outline-success btn-mg p-1" %>
 	     			<%= link_to "Delete", admin_event_submission_path(@event.id), :class => "btn btn-outline-danger btn-mg p-1", :data => { :confirm => "Are you sure?" }, :method => "delete" %>
+	     		<%if @event.validated == true %>
+	     		<% else %>
+	     			<%= link_to "Validate", admin_event_submission_path(@event.id), :class => "btn btn-outline-danger btn-mg p-1", :data => { :confirm => "Are you sure?" }, :method => "put" %>
+	     		<% end %>
      		<% end %>
 		</div>
 	</div>

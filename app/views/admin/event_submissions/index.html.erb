@@ -1,6 +1,6 @@
 <br><br><br><br>
 
-<center><h2>Events list</h2></center>
+<center><h2>Events list waiting for validations</h2></center>
 
 	<br><br>
 
@@ -8,6 +8,8 @@
 
   <div class="card-columns border-warning container " >
       <% @events.each do |event| %>
+        <%if event.validated != true %>
+
       <div class= "column">
         <div class="card"style= "width: 23rem;">
 
@@ -26,5 +28,38 @@
             </div>
             </div>
         </div>
+         <%end%>
+      <% end %>
+  </div>
+
+  <br><br>
+
+  <center><h2>Events list already validated</h2></center>
+
+  <br><br>
+
+  <div class="card-columns border-warning container " >
+      <% @events.each do |event| %>
+        <%if event.validated == true %>
+
+      <div class= "column">
+        <div class="card"style= "width: 23rem;">
+
+           <%if event.header_image.attached?%>
+                        <%= image_tag event.header_image.variant(resize: "500x500").processed, alt: 'header_image',class: "card-img-top" %>
+                <%else%>
+                       <p><img src="http://placehold.it/150x150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" /></p>
+                 <%end%>
+
+            <div class="card-header text-center">
+                <h5 class="card-title text-danger"><%= event.title%></h5>
+            </div>
+            <div class="card-body text-center">
+            <p class="card-subtitle mb-3"><%= event.description %></p>
+            <a class="btn-outline-primary btn p-1" <%= link_to "Have a look on it", admin_event_submission_path(event.id)%></a>
+            </div>
+            </div>
+        </div>
+         <%end%>
       <% end %>
   </div>
