@@ -1,5 +1,1 @@
-Hey buddy, welcome!
-
-My app seems like Eventbrite website. There is some back end atm & gonna put some front really soon!
-
-Stay tuned!
+Eventbrite is an application from which we can plan our outings, inspired by the real Evenbrite, here is one of my first achievements with microservices like Stripe(payment platform), SendGrid(automatised mails) and AWS3. Created in Ruby/RubyOnRails. No CSS effort.
